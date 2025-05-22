@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import type { Swiper as SwiperType } from 'swiper';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -22,7 +23,7 @@ interface ProductSliderProps {
 }
 
 export default function ProductSlider({ title, products }: ProductSliderProps) {
-  const swiperRef = useRef(null);
+  const swiperRef = useRef<SwiperType | null>(null);
 
   const formatPrice = (amount: number) => {
     return new Intl.NumberFormat('fa-IR', {
@@ -37,7 +38,7 @@ export default function ProductSlider({ title, products }: ProductSliderProps) {
         <h2 className="text-xl font-bold text-gray-900">{title}</h2>
         <div className="flex gap-2">
           <button
-            onClick={() => (swiperRef.current as any)?.slidePrev()}
+            onClick={() => swiperRef.current?.slidePrev()}
             className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
           >
             <svg className="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -45,7 +46,7 @@ export default function ProductSlider({ title, products }: ProductSliderProps) {
             </svg>
           </button>
           <button
-            onClick={() => (swiperRef.current as any)?.slideNext()}
+            onClick={() => swiperRef.current?.slideNext()}
             className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
