@@ -1,26 +1,96 @@
-@import "tailwindcss";
+@import url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-vazir: 'Vazirmatn', system-ui, sans-serif;
+  --gold: #D4AF37;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  font-family: var(--font-vazir);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-vazir);
+  @apply bg-gray-50;
+}
+
+@layer components {
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .product-card {
+    @apply bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow;
+  }
+  
+  .product-card-image {
+    @apply relative aspect-square;
+  }
+  
+  .product-card-content {
+    @apply p-3;
+  }
+  
+  .product-card-title {
+    @apply text-gray-800 text-sm font-medium mb-2 line-clamp-2;
+  }
+  
+  .product-card-price {
+    @apply text-sm font-bold text-blue-600;
+  }
+  
+  .product-card-discount {
+    @apply text-xs text-gray-400 line-through;
+  }
+  
+  .product-card-badge {
+    @apply absolute top-2 right-2 bg-red-500 text-white px-2 py-0.5 rounded-full text-xs;
+  }
+  
+  .btn-primary {
+    @apply bg-blue-500 text-white px-2 py-1 rounded text-xs hover:bg-blue-600 transition-colors;
+  }
+
+  .text-gold {
+    color: var(--gold);
+  }
+  
+  .bg-gold {
+    background-color: var(--gold);
+  }
+
+  .ring-gold {
+    --tw-ring-color: var(--gold);
+  }
+
+  .hover\:text-gold:hover {
+    color: var(--gold);
+  }
+
+  .hover\:bg-gold:hover {
+    background-color: var(--gold);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
