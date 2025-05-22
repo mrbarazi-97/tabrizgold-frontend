@@ -52,7 +52,7 @@ export default function RegisterPage() {
       <main className="max-w-2xl mx-auto px-4 py-16">
         <div className="bg-white rounded-lg shadow-sm p-8">
           <h1 className="text-2xl font-bold text-gray-900 mb-8 text-center">
-            ثبت نام در طلای تبریز
+            ثبت نام در تبریزگلد
           </h1>
 
           <form onSubmit={handleSubmit} className="space-y-6">

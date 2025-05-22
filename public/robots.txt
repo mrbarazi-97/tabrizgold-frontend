@@ -1,0 +1,19 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://tabriz.gold/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /dashboard/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/
+
+# Allow product pages
+Allow: /products/
+Allow: /categories/
+
+# Crawl delay
+Crawl-delay: 1 
