@@ -8,9 +8,11 @@ import Footer from '../../../components/Footer';
 interface ProductForm {
   title: string;
   description: string;
-  price: string;
+  weight: string; // Weight in grams
+  laborCost: string; // Labor cost (اجرت)
+  profitMargin: string; // Profit margin (سود)
+  tax: string; // Tax percentage
   category: string;
-  weight: string;
   purity: string;
   images: FileList | null;
 }
@@ -20,9 +22,11 @@ export default function AddProduct() {
   const [formData, setFormData] = useState<ProductForm>({
     title: '',
     description: '',
-    price: '',
-    category: 'rings',
     weight: '',
+    laborCost: '',
+    profitMargin: '',
+    tax: '',
+    category: 'rings',
     purity: '18',
     images: null,
   });
@@ -101,21 +105,6 @@ export default function AddProduct() {
               </div>
 
               <div>
-                <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1">
-                  قیمت (تومان)
-                </label>
-                <input
-                  type="number"
-                  id="price"
-                  name="price"
-                  value={formData.price}
-                  onChange={handleChange}
-                  className="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                  required
-                />
-              </div>
-
-              <div>
                 <label htmlFor="weight" className="block text-sm font-medium text-gray-700 mb-1">
                   وزن (گرم)
                 </label>
@@ -145,6 +134,55 @@ export default function AddProduct() {
                   <option value="18">۱۸ عیار</option>
                   <option value="24">۲۴ عیار</option>
                 </select>
+              </div>
+
+              <div>
+                <label htmlFor="laborCost" className="block text-sm font-medium text-gray-700 mb-1">
+                  اجرت (تومان)
+                </label>
+                <input
+                  type="number"
+                  id="laborCost"
+                  name="laborCost"
+                  value={formData.laborCost}
+                  onChange={handleChange}
+                  className="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="profitMargin" className="block text-sm font-medium text-gray-700 mb-1">
+                  سود (درصد)
+                </label>
+                <input
+                  type="number"
+                  id="profitMargin"
+                  name="profitMargin"
+                  value={formData.profitMargin}
+                  onChange={handleChange}
+                  min="0"
+                  max="100"
+                  className="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="tax" className="block text-sm font-medium text-gray-700 mb-1">
+                  مالیات (درصد)
+                </label>
+                <input
+                  type="number"
+                  id="tax"
+                  name="tax"
+                  value={formData.tax}
+                  onChange={handleChange}
+                  min="0"
+                  max="100"
+                  className="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  required
+                />
               </div>
 
               <div>

@@ -33,6 +33,9 @@ export default function Header() {
               <Link href="/support" className="hover:text-gold transition-colors">
                 پشتیبانی
               </Link>
+              <Link href="/auth/login" className="hover:text-gold transition-colors">
+                ورود / ثبت نام
+              </Link>
             </div>
           </div>
         </div>
