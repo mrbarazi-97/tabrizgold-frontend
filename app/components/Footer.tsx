@@ -47,8 +47,8 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">اطلاعات تماس</h3>
             <ul className="space-y-2 text-gray-400">
               <li>تبریز، بازار تاریخی، راسته بازار</li>
-              <li>تلفن: ۰۴۱-۳۳۳۳۳۳۳۳</li>
-              <li>ایمیل: info@tabrizgold.com</li>
+              <li>شماره تماس: 09142498601</li>
+              <li>ایمیل: info@tabriz.gold</li>
             </ul>
           </div>
 
@@ -73,7 +73,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-gray-800 text-center text-gray-400 text-sm">
-          <p>© {new Date().getFullYear()} طلای تبریز. تمامی حقوق محفوظ است.</p>
+          <p>© {new Date().getFullYear()} تبریزگلد. تمامی حقوق محفوظ است.</p>
         </div>
       </div>
     </footer>

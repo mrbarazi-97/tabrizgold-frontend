@@ -43,8 +43,8 @@ export default function Header() {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-xl font-bold text-gold">طلای تبریز</span>
-            <span className="text-xs text-gray-400">از سال ۱۳۴۰</span>
+            <span className="text-xl font-bold text-gold">تبریزگلد</span>
+            <span className="text-xs text-gray-400">خلاق و بی نظیر</span>
           </Link>
 
           {/* Search Bar */}

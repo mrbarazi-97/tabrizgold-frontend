@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import ProductCard from './components/ProductCard';
+import ProductSlider from './components/ProductSlider';
 
 // Sample data - In a real app, this would come from an API
 const featuredProducts = [
@@ -13,27 +13,59 @@ const featuredProducts = [
     title: 'انگشتر طلا ۱۸ عیار با نگین الماس',
     price: 45800000,
     image: 'https://fakeimg.pl/600x600/cccccc/909090?text=Ring',
-    discount: 15,
+    category: 'rings',
   },
   {
     id: 2,
     title: 'گردنبند طلا با طرح فیوژن',
     price: 28500000,
     image: 'https://fakeimg.pl/600x600/cccccc/909090?text=Necklace',
-    discount: 10,
+    category: 'necklaces',
   },
   {
     id: 3,
     title: 'دستبند طلا و چرم',
     price: 12500000,
     image: 'https://fakeimg.pl/600x600/cccccc/909090?text=Bracelet',
+    category: 'bracelets',
   },
   {
     id: 4,
     title: 'نیم ست طلای عروس',
     price: 85900000,
     image: 'https://fakeimg.pl/600x600/cccccc/909090?text=Bridal+Set',
-    discount: 20,
+    category: 'sets',
+  },
+];
+
+const newArrivals = [
+  {
+    id: 5,
+    title: 'گوشواره طلا با نگین یاقوت',
+    price: 32500000,
+    image: 'https://fakeimg.pl/600x600/cccccc/909090?text=Earrings',
+    category: 'earrings',
+  },
+  {
+    id: 6,
+    title: 'انگشتر طلا سفید',
+    price: 41200000,
+    image: 'https://fakeimg.pl/600x600/cccccc/909090?text=White+Gold+Ring',
+    category: 'rings',
+  },
+  {
+    id: 7,
+    title: 'گردنبند مروارید',
+    price: 55800000,
+    image: 'https://fakeimg.pl/600x600/cccccc/909090?text=Pearl+Necklace',
+    category: 'necklaces',
+  },
+  {
+    id: 8,
+    title: 'دستبند النگویی طلا',
+    price: 38900000,
+    image: 'https://fakeimg.pl/600x600/cccccc/909090?text=Gold+Bangle',
+    category: 'bracelets',
   },
 ];
 
@@ -76,6 +108,25 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
+        </div>
+
+        {/* Product Sliders */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Featured Products Slider */}
+          <section className="py-12">
+            <ProductSlider
+              title="محصولات ویژه"
+              products={featuredProducts}
+            />
+          </section>
+
+          {/* New Arrivals Slider */}
+          <section className="py-12">
+            <ProductSlider
+              title="جدیدترین محصولات"
+              products={newArrivals}
+            />
+          </section>
         </div>
 
         {/* Featured Categories */}
