@@ -4,12 +4,6 @@ import Image from 'next/image';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-export const metadata = {
-  title: 'درباره تبریزگلد | تاریخچه و ارزش‌های ما',
-  description: 'تبریزگلد با بیش از ۵۰ سال سابقه در صنعت طلا و جواهر، پیشگام در ارائه محصولات با کیفیت و خدمات برتر به مشتریان است. آشنایی با تاریخچه و ارزش‌های ما.',
-  keywords: 'تبریزگلد, درباره ما, تاریخچه تبریزگلد, طلا و جواهر تبریز, جواهرات اصیل',
-};
-
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-gray-50">
@@ -20,7 +14,7 @@ export default function AboutPage() {
           <div className="relative h-[400px] rounded-lg overflow-hidden">
             <Image
               src="/images/about-store.jpg"
-              alt="تبریزگلد"
+              alt="نمای فروشگاه تبریزگلد - طراحی مدرن و خلاقانه"
               fill
               className="object-cover"
               priority
@@ -34,39 +28,39 @@ export default function AboutPage() {
 
             <div className="prose prose-lg text-gray-600">
               <p>
-                تبریزگلد از سال ۱۳۵۰ با هدف ارائه بهترین و با کیفیت‌ترین جواهرات به مشتریان عزیز فعالیت خود را آغاز کرد. امروز، با گذشت بیش از نیم قرن، ما همچنان به اصول و ارزش‌های خود پایبند هستیم.
+                تبریزگلد با رویکردی نوآورانه و خلاق در صنعت طلا و جواهر ایران، به دنبال ارائه طراحی‌های منحصر به فرد و با کیفیت برتر است. ما با ترکیب هنر سنتی ایرانی و طراحی مدرن، محصولاتی بی‌نظیر خلق می‌کنیم.
               </p>
 
               <p>
-                ما در تبریزگلد با تکیه بر تجربه و دانش متخصصان خود، بهترین محصولات را با قیمت‌های منصفانه و شفاف به مشتریان ارائه می‌دهیم. تمامی محصولات ما دارای گواهی اصالت و ضمانت کیفیت هستند.
+                در تبریزگلد، هر قطعه جواهر داستان خاص خود را روایت می‌کند. تیم طراحی ما با الهام از هنر غنی ایرانی و ترندهای روز دنیا، مجموعه‌های متنوعی را برای سلیقه‌های مختلف طراحی می‌کند.
               </p>
 
               <p>
-                مزیت‌های خرید از تبریزگلد:
+                مزیت‌های انتخاب تبریزگلد:
               </p>
 
               <ul className="list-disc list-inside space-y-2">
+                <li>طراحی‌های خلاقانه و منحصر به فرد</li>
+                <li>استفاده از جدیدترین تکنولوژی‌های ساخت</li>
                 <li>تضمین اصالت و کیفیت محصولات</li>
                 <li>قیمت‌گذاری شفاف و منصفانه</li>
                 <li>پشتیبانی ۲۴/۷ از مشتریان</li>
-                <li>ارسال سریع و مطمئن</li>
-                <li>امکان مرجوعی تا ۷ روز</li>
-                <li>خدمات پس از فروش</li>
+                <li>خدمات ویژه طراحی سفارشی</li>
               </ul>
             </div>
 
             <div className="grid grid-cols-3 gap-6 mt-8">
               <div className="text-center">
-                <div className="text-3xl font-bold text-gold">۵۰+</div>
-                <div className="text-sm text-gray-600">سال سابقه</div>
+                <div className="text-3xl font-bold text-gold">۱۰۰۰+</div>
+                <div className="text-sm text-gray-600">طرح منحصر به فرد</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-gold">۱۰۰۰۰+</div>
                 <div className="text-sm text-gray-600">مشتری راضی</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-gold">۵۰۰۰+</div>
-                <div className="text-sm text-gray-600">محصول متنوع</div>
+                <div className="text-3xl font-bold text-gold">۲۴/۷</div>
+                <div className="text-sm text-gray-600">پشتیبانی آنلاین</div>
               </div>
             </div>
           </div>
@@ -75,7 +69,7 @@ export default function AboutPage() {
         {/* Team Section */}
         <div className="mt-24">
           <h2 className="text-2xl font-bold text-gray-900 text-center mb-12">
-            تیم متخصص ما
+            تیم خلاق ما
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -83,13 +77,13 @@ export default function AboutPage() {
               <div className="relative w-48 h-48 mx-auto rounded-full overflow-hidden mb-4">
                 <Image
                   src="/images/team-1.jpg"
-                  alt="مدیر عامل تبریزگلد"
+                  alt="مدیر خلاقیت تبریزگلد"
                   fill
                   className="object-cover"
                 />
               </div>
               <h3 className="font-semibold text-lg">علی محمدی</h3>
-              <p className="text-gray-600">مدیر عامل</p>
+              <p className="text-gray-600">مدیر خلاقیت</p>
             </div>
 
             <div className="text-center">
@@ -109,13 +103,13 @@ export default function AboutPage() {
               <div className="relative w-48 h-48 mx-auto rounded-full overflow-hidden mb-4">
                 <Image
                   src="/images/team-3.jpg"
-                  alt="مدیر تولید تبریزگلد"
+                  alt="مدیر هنری تبریزگلد"
                   fill
                   className="object-cover"
                 />
               </div>
               <h3 className="font-semibold text-lg">رضا کریمی</h3>
-              <p className="text-gray-600">مدیر تولید</p>
+              <p className="text-gray-600">مدیر هنری</p>
             </div>
           </div>
         </div>

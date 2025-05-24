@@ -6,16 +6,9 @@ import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
 import { Navigation } from 'swiper/modules';
+import { Product, LaborCost } from '../types/product';
 import 'swiper/css';
 import 'swiper/css/navigation';
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
-  category: string;
-}
 
 interface ProductSliderProps {
   title: string;
@@ -30,6 +23,13 @@ export default function ProductSlider({ title, products }: ProductSliderProps) {
       style: 'decimal',
       maximumFractionDigits: 0,
     }).format(amount);
+  };
+
+  const formatLaborCost = (laborCost: LaborCost) => {
+    if (laborCost.type === 'percentage') {
+      return `${laborCost.value}٪`;
+    }
+    return `${formatPrice(laborCost.value)} تومان`;
   };
 
   return (
@@ -84,9 +84,39 @@ export default function ProductSlider({ title, products }: ProductSliderProps) {
                   <h3 className="text-sm font-medium text-gray-900 mb-1 line-clamp-1">
                     {product.title}
                   </h3>
-                  <p className="text-lg font-bold text-gray-900">
-                    {formatPrice(product.price)} تومان
-                  </p>
+                  
+                  {/* Product Details */}
+                  <div className="space-y-1 mb-2">
+                    {product.weight && (
+                      <div className="flex justify-between text-xs text-gray-600">
+                        <span>وزن:</span>
+                        <span>{product.weight} گرم</span>
+                      </div>
+                    )}
+                    {product.laborCost && (
+                      <div className="flex justify-between text-xs text-gray-600">
+                        <span>اجرت:</span>
+                        <span>{formatLaborCost(product.laborCost)}</span>
+                      </div>
+                    )}
+                    {product.profitMargin && (
+                      <div className="flex justify-between text-xs text-gray-600">
+                        <span>سود:</span>
+                        <span>{product.profitMargin}٪</span>
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div className="flex items-baseline">
+                    {product.discount && (
+                      <span className="text-xs text-gray-400 line-through ml-2">
+                        {formatPrice(product.price)} تومان
+                      </span>
+                    )}
+                    <span className="text-sm font-bold text-gray-900">
+                      {formatPrice(product.price * (1 - (product.discount || 0) / 100))} تومان
+                    </span>
+                  </div>
                 </div>
               </div>
             </Link>

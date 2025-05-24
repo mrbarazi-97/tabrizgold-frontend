@@ -4,14 +4,22 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import { Product, LaborCost } from '../../types/product';
 
 // This would come from an API in a real application
-const product = {
+const product: Product = {
   id: 1,
   title: 'انگشتر طلا ۱۸ عیار با نگین الماس',
   description: 'انگشتر طلا ۱۸ عیار با طراحی منحصر به فرد و نگین الماس اصل. مناسب برای مراسم‌های ویژه و هدیه‌های خاص.',
   price: 45800000,
   discount: 15,
+  weight: 4.2,
+  laborCost: {
+    type: 'fixed',
+    value: 2500000
+  },
+  profitMargin: 12,
+  tax: 9,
   specifications: [
     { key: 'عیار', value: '۱۸' },
     { key: 'وزن', value: '۴.۲ گرم' },
@@ -41,9 +49,43 @@ export default function ProductPage() {
     }).format(amount);
   };
 
+  const formatLaborCost = (laborCost: LaborCost) => {
+    if (laborCost.type === 'percentage') {
+      return `${laborCost.value}٪`;
+    }
+    return `${formatPrice(laborCost.value)} تومان`;
+  };
+
   const finalPrice = product.discount 
     ? product.price - (product.price * product.discount) / 100 
     : product.price;
+
+  // Calculate the base gold price and other components
+  const calculatePriceComponents = () => {
+    if (!product.laborCost) return null;
+
+    const baseGoldPrice = product.price;
+    const laborCostAmount = product.laborCost.type === 'percentage'
+      ? baseGoldPrice * (product.laborCost.value / 100)
+      : product.laborCost.value;
+    
+    const profitAmount = product.profitMargin 
+      ? ((baseGoldPrice + laborCostAmount) * product.profitMargin) / 100
+      : 0;
+      
+    const taxAmount = product.tax
+      ? ((baseGoldPrice + laborCostAmount + profitAmount) * product.tax) / 100
+      : 0;
+
+    return {
+      baseGoldPrice,
+      laborCostAmount,
+      profitAmount,
+      taxAmount
+    };
+  };
+
+  const priceComponents = calculatePriceComponents();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -90,29 +132,55 @@ export default function ProductPage() {
                 <p className="text-gray-600">{product.description}</p>
               </div>
 
-              <div className="border-t border-b border-gray-200 py-4">
-                <div className="flex items-baseline">
-                  {product.discount && (
-                    <span className="text-gray-500 line-through ml-2">
-                      {formatPrice(product.price)} تومان
-                    </span>
-                  )}
-                  <span className="text-2xl font-bold text-gray-900">
-                    {formatPrice(finalPrice)} تومان
-                  </span>
-                  {product.discount && (
-                    <span className="mr-2 px-2 py-1 bg-red-500 text-white text-sm rounded-full">
-                      {product.discount}٪ تخفیف
-                    </span>
-                  )}
+              {/* Price Breakdown */}
+              {priceComponents && (
+                <div className="border rounded-lg p-4 space-y-3">
+                  <h2 className="text-lg font-bold text-gray-900 mb-3">جزئیات قیمت</h2>
+                  
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">قیمت پایه طلا:</span>
+                      <span className="font-medium">{formatPrice(priceComponents.baseGoldPrice)} تومان</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">اجرت ساخت ({product.laborCost?.type === 'percentage' ? `${product.laborCost.value}٪` : 'مقطوع'}):</span>
+                      <span className="font-medium">{formatPrice(priceComponents.laborCostAmount)} تومان</span>
+                    </div>
+                    {product.profitMargin && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">سود ({product.profitMargin}٪):</span>
+                        <span className="font-medium">{formatPrice(priceComponents.profitAmount)} تومان</span>
+                      </div>
+                    )}
+                    {product.tax && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">مالیات ({product.tax}٪):</span>
+                        <span className="font-medium">{formatPrice(priceComponents.taxAmount)} تومان</span>
+                      </div>
+                    )}
+                    <div className="pt-2 border-t">
+                      <div className="flex justify-between text-sm font-bold">
+                        <span>قیمت نهایی:</span>
+                        <span className="text-blue-600">{formatPrice(product.price)} تومان</span>
+                      </div>
+                      {product.discount && (
+                        <div className="flex justify-between items-center mt-2">
+                          <span className="text-sm text-red-500">تخفیف ({product.discount}٪):</span>
+                          <span className="text-sm font-bold text-red-500">
+                            {formatPrice(product.price - finalPrice)} تومان
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Specifications */}
               <div className="space-y-4">
                 <h2 className="text-lg font-bold text-gray-900">مشخصات محصول</h2>
                 <div className="grid grid-cols-2 gap-4">
-                  {product.specifications.map((spec) => (
+                  {product.specifications?.map((spec) => (
                     <div key={spec.key} className="flex justify-between">
                       <span className="text-gray-600">{spec.key}:</span>
                       <span className="font-medium text-gray-900">{spec.value}</span>
@@ -122,7 +190,7 @@ export default function ProductPage() {
               </div>
 
               {/* Seller Info */}
-              <div className="bg-gray-50 rounded-lg p-4">
+              <div className="border-t pt-4">
                 <div className="flex items-center justify-between mb-2">
                   <span className="font-medium text-gray-900">{product.seller.name}</span>
                   <div className="flex items-center">

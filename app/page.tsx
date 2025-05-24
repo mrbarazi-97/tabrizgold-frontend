@@ -5,15 +5,24 @@ import Link from 'next/link';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ProductSlider from './components/ProductSlider';
+import { Product } from './types/product';
 
 // Sample data - In a real app, this would come from an API
-const featuredProducts = [
+const featuredProducts: Product[] = [
   {
     id: 1,
     title: 'انگشتر طلا ۱۸ عیار با نگین الماس',
     price: 45800000,
     image: 'https://fakeimg.pl/600x600/cccccc/909090?text=Ring',
     category: 'rings',
+    weight: 4.2,
+    laborCost: {
+      type: 'fixed' as const,
+      value: 2500000
+    },
+    profitMargin: 12,
+    tax: 9,
+    discount: 15,
   },
   {
     id: 2,
@@ -21,6 +30,13 @@ const featuredProducts = [
     price: 28500000,
     image: 'https://fakeimg.pl/600x600/cccccc/909090?text=Necklace',
     category: 'necklaces',
+    weight: 6.8,
+    laborCost: {
+      type: 'percentage' as const,
+      value: 7
+    },
+    profitMargin: 10,
+    tax: 9,
   },
   {
     id: 3,
@@ -28,6 +44,14 @@ const featuredProducts = [
     price: 12500000,
     image: 'https://fakeimg.pl/600x600/cccccc/909090?text=Bracelet',
     category: 'bracelets',
+    weight: 3.5,
+    laborCost: {
+      type: 'fixed' as const,
+      value: 950000
+    },
+    profitMargin: 15,
+    tax: 9,
+    discount: 10,
   },
   {
     id: 4,
@@ -35,16 +59,30 @@ const featuredProducts = [
     price: 85900000,
     image: 'https://fakeimg.pl/600x600/cccccc/909090?text=Bridal+Set',
     category: 'sets',
+    weight: 15.2,
+    laborCost: {
+      type: 'percentage' as const,
+      value: 8
+    },
+    profitMargin: 12,
+    tax: 9,
   },
 ];
 
-const newArrivals = [
+const newArrivals: Product[] = [
   {
     id: 5,
     title: 'گوشواره طلا با نگین یاقوت',
     price: 32500000,
     image: 'https://fakeimg.pl/600x600/cccccc/909090?text=Earrings',
     category: 'earrings',
+    weight: 3.8,
+    laborCost: {
+      type: 'fixed' as const,
+      value: 1950000
+    },
+    profitMargin: 12,
+    tax: 9,
   },
   {
     id: 6,
@@ -52,6 +90,14 @@ const newArrivals = [
     price: 41200000,
     image: 'https://fakeimg.pl/600x600/cccccc/909090?text=White+Gold+Ring',
     category: 'rings',
+    weight: 5.1,
+    laborCost: {
+      type: 'percentage' as const,
+      value: 9
+    },
+    profitMargin: 12,
+    tax: 9,
+    discount: 5,
   },
   {
     id: 7,
@@ -59,6 +105,13 @@ const newArrivals = [
     price: 55800000,
     image: 'https://fakeimg.pl/600x600/cccccc/909090?text=Pearl+Necklace',
     category: 'necklaces',
+    weight: 8.4,
+    laborCost: {
+      type: 'fixed' as const,
+      value: 3200000
+    },
+    profitMargin: 12,
+    tax: 9,
   },
   {
     id: 8,
@@ -66,6 +119,13 @@ const newArrivals = [
     price: 38900000,
     image: 'https://fakeimg.pl/600x600/cccccc/909090?text=Gold+Bangle',
     category: 'bracelets',
+    weight: 7.2,
+    laborCost: {
+      type: 'percentage' as const,
+      value: 6
+    },
+    profitMargin: 12,
+    tax: 9,
   },
 ];
 

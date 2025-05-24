@@ -1,312 +1,244 @@
 'use client';
 
 import { useState } from 'react';
-import Header from '../../components/Header';
+import Link from 'next/link';
+
+interface DashboardStats {
+  products: {
+    total: number;
+    pending: number;
+    approved: number;
+    rejected: number;
+  };
+  orders: {
+    total: number;
+    pending: number;
+    processing: number;
+    shipped: number;
+    delivered: number;
+    cancelled: number;
+  };
+  articles: {
+    total: number;
+    draft: number;
+    pending: number;
+    published: number;
+    rejected: number;
+  };
+  users: {
+    total: number;
+    buyers: number;
+    sellers: number;
+    pendingSellers: number;
+  };
+}
 
 // Mock data - would come from an API in a real application
-const mockUsers = [
-  {
-    id: 1,
-    name: 'علی محمدی',
-    role: 'seller',
-    email: 'ali@example.com',
-    status: 'active',
-    joinDate: '۱۴۰۲/۱۰/۱۵',
+const mockStats: DashboardStats = {
+  products: {
+    total: 150,
+    pending: 15,
+    approved: 120,
+    rejected: 15
   },
-  {
-    id: 2,
-    name: 'مریم احمدی',
-    role: 'buyer',
-    email: 'maryam@example.com',
-    status: 'active',
-    joinDate: '۱۴۰۲/۱۱/۲۰',
+  orders: {
+    total: 500,
+    pending: 50,
+    processing: 30,
+    shipped: 20,
+    delivered: 380,
+    cancelled: 20
   },
-];
-
-const mockAnalytics = {
-  totalRevenue: 1580000000,
-  totalOrders: 256,
-  totalUsers: 189,
-  totalProducts: 450,
-  recentTransactions: [
-    {
-      id: 1,
-      date: '۱۴۰۲/۱۲/۱۵',
-      amount: 45800000,
-      user: 'مریم احمدی',
-      type: 'خرید',
-    },
-    {
-      id: 2,
-      date: '۱۴۰۲/۱۲/۱۴',
-      amount: 68500000,
-      user: 'رضا کریمی',
-      type: 'خرید',
-    },
-  ],
+  articles: {
+    total: 45,
+    draft: 5,
+    pending: 8,
+    published: 30,
+    rejected: 2
+  },
+  users: {
+    total: 250,
+    buyers: 200,
+    sellers: 50,
+    pendingSellers: 5
+  }
 };
 
 export default function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState('overview');
+  const [stats] = useState(mockStats);
 
-  const formatPrice = (amount: number) => {
-    return new Intl.NumberFormat('fa-IR', {
-      style: 'decimal',
-      maximumFractionDigits: 0,
-    }).format(amount);
+  const formatNumber = (num: number) => {
+    return new Intl.NumberFormat('fa-IR').format(num);
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">پنل مدیریت</h1>
+    <div className="container mx-auto py-6">
+      <h1 className="text-2xl font-bold text-gray-900 mb-6">داشبورد مدیریت</h1>
+
+      {/* Stats Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        {/* Products Stats */}
+        <div className="bg-white rounded-lg shadow p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-gray-900">محصولات</h2>
+            <Link
+              href="/dashboard/admin/products"
+              className="text-sm text-blue-600 hover:text-blue-800"
+            >
+              مشاهده همه
+            </Link>
+          </div>
+          <div className="space-y-3">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-600">کل محصولات:</span>
+              <span className="font-medium">{formatNumber(stats.products.total)}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-yellow-600">در انتظار تایید:</span>
+              <span className="font-medium">{formatNumber(stats.products.pending)}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-green-600">تایید شده:</span>
+              <span className="font-medium">{formatNumber(stats.products.approved)}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-red-600">رد شده:</span>
+              <span className="font-medium">{formatNumber(stats.products.rejected)}</span>
+            </div>
+          </div>
         </div>
 
-        {/* Navigation Tabs */}
-        <div className="border-b border-gray-200 mb-8">
-          <nav className="flex space-x-8 space-x-reverse">
-            <button
-              onClick={() => setActiveTab('overview')}
-              className={`px-3 py-2 text-sm font-medium ${
-                activeTab === 'overview'
-                  ? 'border-b-2 border-blue-500 text-blue-600'
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
+        {/* Orders Stats */}
+        <div className="bg-white rounded-lg shadow p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-gray-900">سفارشات</h2>
+            <Link
+              href="/dashboard/admin/orders"
+              className="text-sm text-blue-600 hover:text-blue-800"
             >
-              نمای کلی
-            </button>
-            <button
-              onClick={() => setActiveTab('users')}
-              className={`px-3 py-2 text-sm font-medium ${
-                activeTab === 'users'
-                  ? 'border-b-2 border-blue-500 text-blue-600'
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
-            >
-              کاربران
-            </button>
-            <button
-              onClick={() => setActiveTab('settings')}
-              className={`px-3 py-2 text-sm font-medium ${
-                activeTab === 'settings'
-                  ? 'border-b-2 border-blue-500 text-blue-600'
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
-            >
-              تنظیمات
-            </button>
-          </nav>
+              مشاهده همه
+            </Link>
+          </div>
+          <div className="space-y-3">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-600">کل سفارشات:</span>
+              <span className="font-medium">{formatNumber(stats.orders.total)}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-yellow-600">در انتظار تایید:</span>
+              <span className="font-medium">{formatNumber(stats.orders.pending)}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-blue-600">در حال پردازش:</span>
+              <span className="font-medium">{formatNumber(stats.orders.processing)}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-purple-600">ارسال شده:</span>
+              <span className="font-medium">{formatNumber(stats.orders.shipped)}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-green-600">تحویل شده:</span>
+              <span className="font-medium">{formatNumber(stats.orders.delivered)}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-red-600">لغو شده:</span>
+              <span className="font-medium">{formatNumber(stats.orders.cancelled)}</span>
+            </div>
+          </div>
         </div>
 
-        {/* Overview Tab */}
-        {activeTab === 'overview' && (
-          <div className="space-y-6">
-            {/* Analytics Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="text-sm font-medium text-gray-500 mb-2">درآمد کل</h3>
-                <p className="text-2xl font-bold text-gray-900">
-                  {formatPrice(mockAnalytics.totalRevenue)} تومان
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="text-sm font-medium text-gray-500 mb-2">تعداد سفارشات</h3>
-                <p className="text-2xl font-bold text-gray-900">{mockAnalytics.totalOrders}</p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="text-sm font-medium text-gray-500 mb-2">تعداد کاربران</h3>
-                <p className="text-2xl font-bold text-gray-900">{mockAnalytics.totalUsers}</p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="text-sm font-medium text-gray-500 mb-2">تعداد محصولات</h3>
-                <p className="text-2xl font-bold text-gray-900">{mockAnalytics.totalProducts}</p>
-              </div>
+        {/* Articles Stats */}
+        <div className="bg-white rounded-lg shadow p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-gray-900">مقالات</h2>
+            <Link
+              href="/dashboard/admin/articles"
+              className="text-sm text-blue-600 hover:text-blue-800"
+            >
+              مشاهده همه
+            </Link>
+          </div>
+          <div className="space-y-3">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-600">کل مقالات:</span>
+              <span className="font-medium">{formatNumber(stats.articles.total)}</span>
             </div>
-
-            {/* Recent Transactions */}
-            <div className="bg-white rounded-lg shadow-sm">
-              <div className="px-6 py-4 border-b border-gray-200">
-                <h2 className="text-lg font-medium text-gray-900">تراکنش‌های اخیر</h2>
-              </div>
-              <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        تاریخ
-                      </th>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        کاربر
-                      </th>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        نوع
-                      </th>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        مبلغ
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {mockAnalytics.recentTransactions.map((transaction) => (
-                      <tr key={transaction.id}>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {transaction.date}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {transaction.user}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {transaction.type}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {formatPrice(transaction.amount)} تومان
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-600">پیش‌نویس:</span>
+              <span className="font-medium">{formatNumber(stats.articles.draft)}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-yellow-600">در انتظار تایید:</span>
+              <span className="font-medium">{formatNumber(stats.articles.pending)}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-green-600">منتشر شده:</span>
+              <span className="font-medium">{formatNumber(stats.articles.published)}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-red-600">رد شده:</span>
+              <span className="font-medium">{formatNumber(stats.articles.rejected)}</span>
             </div>
           </div>
-        )}
+        </div>
+      </div>
 
-        {/* Users Tab */}
-        {activeTab === 'users' && (
-          <div className="bg-white rounded-lg shadow-sm">
-            <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-              <h2 className="text-lg font-medium text-gray-900">مدیریت کاربران</h2>
-              <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-                افزودن کاربر جدید
-              </button>
+      {/* Quick Actions */}
+      <div className="bg-white rounded-lg shadow p-6">
+        <h2 className="text-lg font-semibold text-gray-900 mb-4">عملیات سریع</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Link
+            href="/dashboard/admin/products?status=pending"
+            className="flex items-center p-4 bg-yellow-50 rounded-lg hover:bg-yellow-100 transition-colors"
+          >
+            <div className="flex-1">
+              <h3 className="font-medium text-yellow-800">محصولات در انتظار تایید</h3>
+              <p className="text-sm text-yellow-600">{formatNumber(stats.products.pending)} محصول</p>
             </div>
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      نام
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      نقش
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      ایمیل
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      وضعیت
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      تاریخ عضویت
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      عملیات
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {mockUsers.map((user) => (
-                    <tr key={user.id}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {user.name}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {user.role === 'seller' ? 'فروشنده' : 'خریدار'}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {user.email}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                          فعال
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {user.joinDate}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        <button className="text-blue-600 hover:text-blue-900 ml-4">
-                          ویرایش
-                        </button>
-                        <button className="text-red-600 hover:text-red-900">
-                          غیرفعال‌سازی
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <svg className="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
+
+          <Link
+            href="/dashboard/admin/orders?status=pending"
+            className="flex items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
+          >
+            <div className="flex-1">
+              <h3 className="font-medium text-blue-800">سفارشات جدید</h3>
+              <p className="text-sm text-blue-600">{formatNumber(stats.orders.pending)} سفارش</p>
             </div>
-          </div>
-        )}
+            <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
 
-        {/* Settings Tab */}
-        {activeTab === 'settings' && (
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="max-w-2xl space-y-8">
-              {/* Site Settings */}
-              <div>
-                <h3 className="text-lg font-medium text-gray-900 mb-4">تنظیمات سایت</h3>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      نام فروشگاه
-                    </label>
-                    <input
-                      type="text"
-                      defaultValue="طلای تبریز"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      توضیحات فروشگاه
-                    </label>
-                    <textarea
-                      rows={3}
-                      defaultValue="فروشگاه آنلاین طلا و جواهرات"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Payment Settings */}
-              <div>
-                <h3 className="text-lg font-medium text-gray-900 mb-4">تنظیمات پرداخت</h3>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      درگاه پرداخت
-                    </label>
-                    <select className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                      <option>زرین‌پال</option>
-                      <option>پی‌پینگ</option>
-                      <option>نکست‌پی</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      کلید API
-                    </label>
-                    <input
-                      type="password"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-                  ذخیره تنظیمات
-                </button>
-              </div>
+          <Link
+            href="/dashboard/admin/articles?status=pending"
+            className="flex items-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors"
+          >
+            <div className="flex-1">
+              <h3 className="font-medium text-green-800">مقالات در انتظار تایید</h3>
+              <p className="text-sm text-green-600">{formatNumber(stats.articles.pending)} مقاله</p>
             </div>
-          </div>
-        )}
+            <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
+
+          <Link
+            href="/dashboard/admin/users?status=pending"
+            className="flex items-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors"
+          >
+            <div className="flex-1">
+              <h3 className="font-medium text-purple-800">فروشندگان در انتظار تایید</h3>
+              <p className="text-sm text-purple-600">{formatNumber(stats.users.pendingSellers)} فروشنده</p>
+            </div>
+            <svg className="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
+        </div>
       </div>
     </div>
   );

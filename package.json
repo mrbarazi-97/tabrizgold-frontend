@@ -9,21 +9,41 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "14.1.0",
-    "react": "^18",
-    "react-dom": "^18",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.1.0",
+    "@mui/material": "^7.1.0",
+    "next": "^14.2.29",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "stylis": "^4.3.6",
+    "stylis-plugin-rtl": "^2.1.1",
     "swiper": "^11.2.7"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/node": "^20.17.50",
+    "@types/react": "^18.3.22",
+    "@types/react-dom": "^18.3.7",
     "@types/swiper": "^5.4.3",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
-    "typescript": "^5"
-  }
+    "typescript": "^5.8.3"
+  },
+  "description": "A full-stack e-commerce platform for a luxury jewelry store, featuring both frontend and backend implementations.",
+  "main": "next.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrbarazi-97/tabrizgold-frontend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mrbarazi-97/tabrizgold-frontend/issues"
+  },
+  "homepage": "https://github.com/mrbarazi-97/tabrizgold-frontend#readme"
 }

@@ -21,32 +21,64 @@ const products = [
     title: 'انگشتر طلا ۱۸ عیار',
     price: 45800000,
     category: 'rings',
+    goldType: 'new',
     image: 'https://fakeimg.pl/600x600/cccccc/909090?text=Ring+1',
     discount: 15,
+    weight: 4.2,
+    laborCost: {
+      type: 'fixed',
+      value: 2500000
+    },
+    profitMargin: 12,
+    tax: 9
   },
   {
     id: 2,
     title: 'گردنبند طلا با نگین الماس',
     price: 68500000,
     category: 'necklaces',
+    goldType: 'new',
     image: 'https://fakeimg.pl/600x600/cccccc/909090?text=Necklace+1',
     discount: 0,
+    weight: 8.5,
+    laborCost: {
+      type: 'percentage',
+      value: 8
+    },
+    profitMargin: 10,
+    tax: 9
   },
   {
     id: 3,
     title: 'گوشواره طلا سفید',
     price: 32000000,
     category: 'earrings',
+    goldType: 'used',
     image: 'https://fakeimg.pl/600x600/cccccc/909090?text=Earring+1',
     discount: 10,
+    weight: 3.2,
+    laborCost: {
+      type: 'fixed',
+      value: 1800000
+    },
+    profitMargin: 12,
+    tax: 9
   },
   {
     id: 4,
     title: 'دستبند طلا و چرم',
     price: 28900000,
     category: 'bracelets',
+    goldType: 'used',
     image: 'https://fakeimg.pl/600x600/cccccc/909090?text=Bracelet+1',
     discount: 0,
+    weight: 5.1,
+    laborCost: {
+      type: 'percentage',
+      value: 6
+    },
+    profitMargin: 15,
+    tax: 9
   },
 ];
 
@@ -54,6 +86,7 @@ export default function CategoriesPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('newest');
   const [priceRange, setPriceRange] = useState('all');
+  const [selectedGoldType, setSelectedGoldType] = useState('all');
 
   const formatPrice = (amount: number) => {
     return new Intl.NumberFormat('fa-IR', {
@@ -62,8 +95,16 @@ export default function CategoriesPage() {
     }).format(amount);
   };
 
+  const formatLaborCost = (laborCost: { type: string; value: number }) => {
+    if (laborCost.type === 'percentage') {
+      return `${laborCost.value}٪`;
+    }
+    return `${formatPrice(laborCost.value)} تومان`;
+  };
+
   const filteredProducts = products
     .filter(product => selectedCategory === 'all' || product.category === selectedCategory)
+    .filter(product => selectedGoldType === 'all' || product.goldType === selectedGoldType)
     .sort((a, b) => {
       if (sortBy === 'price-asc') return a.price - b.price;
       if (sortBy === 'price-desc') return b.price - a.price;
@@ -95,6 +136,43 @@ export default function CategoriesPage() {
                     {category.name}
                   </button>
                 ))}
+              </div>
+            </div>
+
+            {/* Gold Type Filter */}
+            <div className="bg-white p-4 rounded-lg shadow-sm">
+              <h3 className="text-lg font-medium text-gray-900 mb-4">نوع طلا</h3>
+              <div className="space-y-2">
+                <button
+                  onClick={() => setSelectedGoldType('all')}
+                  className={`block w-full text-right px-2 py-1 rounded ${
+                    selectedGoldType === 'all'
+                      ? 'bg-blue-50 text-blue-600'
+                      : 'text-gray-600 hover:bg-gray-50'
+                  }`}
+                >
+                  همه
+                </button>
+                <button
+                  onClick={() => setSelectedGoldType('new')}
+                  className={`block w-full text-right px-2 py-1 rounded ${
+                    selectedGoldType === 'new'
+                      ? 'bg-blue-50 text-blue-600'
+                      : 'text-gray-600 hover:bg-gray-50'
+                  }`}
+                >
+                  طلای نو
+                </button>
+                <button
+                  onClick={() => setSelectedGoldType('used')}
+                  className={`block w-full text-right px-2 py-1 rounded ${
+                    selectedGoldType === 'used'
+                      ? 'bg-blue-50 text-blue-600'
+                      : 'text-gray-600 hover:bg-gray-50'
+                  }`}
+                >
+                  طلای دست دوم
+                </button>
               </div>
             </div>
 
@@ -141,25 +219,66 @@ export default function CategoriesPage() {
                         fill
                         className="object-cover"
                       />
+                      {product.discount > 0 && (
+                        <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
+                          {product.discount}٪ تخفیف
+                        </div>
+                      )}
                     </div>
                     <div className="p-4">
-                      <h3 className="text-lg font-medium text-gray-900 mb-2">
+                      <h3 className="text-sm font-medium text-gray-900 mb-2 line-clamp-2">
                         {product.title}
                       </h3>
-                      <div className="flex items-baseline">
-                        {product.discount > 0 && (
-                          <span className="text-gray-500 line-through text-sm ml-2">
-                            {formatPrice(product.price)} تومان
-                          </span>
+                      
+                      {/* Product Details */}
+                      <div className="space-y-2 mb-3">
+                        {product.weight && (
+                          <div className="flex justify-between text-xs text-gray-600">
+                            <span>وزن:</span>
+                            <span>{product.weight} گرم</span>
+                          </div>
                         )}
-                        <span className="text-lg font-bold text-gray-900">
-                          {formatPrice(product.price * (1 - product.discount / 100))} تومان
-                        </span>
-                        {product.discount > 0 && (
-                          <span className="mr-2 px-2 py-1 bg-red-500 text-white text-xs rounded-full">
-                            {product.discount}٪ تخفیف
-                          </span>
+                        {product.laborCost && (
+                          <div className="flex justify-between text-xs text-gray-600">
+                            <span>اجرت:</span>
+                            <span>{formatLaborCost(product.laborCost)}</span>
+                          </div>
                         )}
+                        {product.profitMargin && (
+                          <div className="flex justify-between text-xs text-gray-600">
+                            <span>سود:</span>
+                            <span>{product.profitMargin}٪</span>
+                          </div>
+                        )}
+                        {product.tax && (
+                          <div className="flex justify-between text-xs text-gray-600">
+                            <span>مالیات:</span>
+                            <span>{product.tax}٪</span>
+                          </div>
+                        )}
+                      </div>
+                      
+                      <div className="flex items-baseline justify-between">
+                        <div>
+                          {product.discount > 0 && (
+                            <span className="text-xs text-gray-400 line-through block">
+                              {formatPrice(product.price)} تومان
+                            </span>
+                          )}
+                          <span className="text-sm font-bold text-gray-900">
+                            {formatPrice(product.price * (1 - (product.discount || 0) / 100))} تومان
+                          </span>
+                        </div>
+                        <button 
+                          onClick={(e) => {
+                            e.preventDefault();
+                            // Add to cart functionality here
+                            console.log('Adding to cart:', product.id);
+                          }}
+                          className="bg-blue-500 hover:bg-blue-600 text-white text-xs px-2 py-1 rounded transition-colors"
+                        >
+                          افزودن به سبد
+                        </button>
                       </div>
                     </div>
                   </div>
