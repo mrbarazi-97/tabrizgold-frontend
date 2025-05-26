@@ -9,20 +9,18 @@ export interface ProductSeller {
 }
 
 export interface Product {
-  id: string;
-  title: string;
-  description?: string;
-  images?: string[];
-  image: string;
-  price: number;
-  wage: number;
+  id: number;
+  name: string;
+  description: string;
   weight: number;
-  condition: ProductCondition;
-  seller: ProductSeller;
-  specifications?: Array<{
-    label: string;
-    value: string;
-  }>;
+  purity: number;
+  basePrice: number;
+  laborCost: number;
+  profitMargin: number;
+  discount?: number;
+  images: string[];
+  category: string;
+  inStock: boolean;
 }
 
 export interface ProductCardProps extends Product {} 

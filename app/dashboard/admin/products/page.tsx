@@ -2,25 +2,44 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Product } from '../../../types/product';
+import { Product } from '@/app/types/product';
 
 // Mock data - would come from an API in a real application
 const mockProducts: (Product & { status: 'pending' | 'approved' | 'rejected' })[] = [
   {
     id: 1,
-    title: 'انگشتر طلا ۱۸ عیار',
-    price: 45800000,
-    category: 'rings',
-    goldType: 'new',
-    image: 'https://fakeimg.pl/600x600/cccccc/909090?text=Ring+1',
-    status: 'pending',
+    name: 'النگو طلا 18 عیار',
+    description: 'النگو طلا 18 عیار با طراحی زیبا و ظریف',
     weight: 4.2,
-    laborCost: {
-      type: 'fixed',
-      value: 2500000
-    },
+    purity: 0.750,
+    basePrice: 12500000,
+    laborCost: 2500000,
+    profitMargin: 10,
+    discount: 5,
+    images: [
+      'https://fakeimg.pl/600x400/FFD700/000/?text=النگو+طلا',
+      'https://fakeimg.pl/600x400/FFD700/000/?text=النگو+طلا+2'
+    ],
+    category: 'النگو',
+    inStock: true,
+    status: 'pending'
+  },
+  {
+    id: 2,
+    name: 'گردنبند طلا 18 عیار',
+    description: 'گردنبند طلا 18 عیار با زنجیر ظریف',
+    weight: 2.8,
+    purity: 0.750,
+    basePrice: 8500000,
+    laborCost: 1800000,
     profitMargin: 12,
-    tax: 9
+    images: [
+      'https://fakeimg.pl/600x400/FFD700/000/?text=گردنبند+طلا',
+      'https://fakeimg.pl/600x400/FFD700/000/?text=گردنبند+طلا+2'
+    ],
+    category: 'گردنبند',
+    inStock: true,
+    status: 'pending'
   },
   // Add more mock products as needed
 ];
@@ -70,7 +89,6 @@ export default function AdminProducts() {
               <th className="px-6 py-3 text-right text-xs font-medium text-gray-500">تصویر</th>
               <th className="px-6 py-3 text-right text-xs font-medium text-gray-500">عنوان</th>
               <th className="px-6 py-3 text-right text-xs font-medium text-gray-500">قیمت</th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500">نوع طلا</th>
               <th className="px-6 py-3 text-right text-xs font-medium text-gray-500">وضعیت</th>
               <th className="px-6 py-3 text-right text-xs font-medium text-gray-500">عملیات</th>
             </tr>
@@ -81,21 +99,18 @@ export default function AdminProducts() {
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="relative w-12 h-12">
                     <Image
-                      src={product.image}
-                      alt={product.title}
+                      src={product.images[0]}
+                      alt={product.name}
                       fill
                       className="object-cover rounded-md"
                     />
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {product.title}
+                  {product.name}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {formatPrice(product.price)} تومان
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {product.goldType === 'new' ? 'طلای نو' : 'طلای دست دوم'}
+                  {formatPrice(product.basePrice)} تومان
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
@@ -153,10 +168,10 @@ export default function AdminProducts() {
                   </label>
                   <input
                     type="text"
-                    value={selectedProduct.title}
+                    value={selectedProduct.name}
                     onChange={(e) => setSelectedProduct({
                       ...selectedProduct,
-                      title: e.target.value
+                      name: e.target.value
                     })}
                     className="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                   />
@@ -167,10 +182,10 @@ export default function AdminProducts() {
                   </label>
                   <input
                     type="number"
-                    value={selectedProduct.price}
+                    value={selectedProduct.basePrice}
                     onChange={(e) => setSelectedProduct({
                       ...selectedProduct,
-                      price: parseInt(e.target.value)
+                      basePrice: parseInt(e.target.value)
                     })}
                     className="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                   />

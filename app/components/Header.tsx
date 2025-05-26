@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import GoldPriceWidget from './GoldPriceWidget';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,7 +26,7 @@ export default function Header() {
         <div className={`border-b transition-all duration-300 ${
           isScrolled ? 'border-gray-200/50 py-1' : 'border-gray-200/30 py-2'
         }`}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="container mx-auto px-4">
             <div className="flex justify-between items-center text-xs">
               <div className="flex items-center gap-4">
                 <a href="tel:09142498601" className="flex items-center gap-1 text-gray-600 hover:text-blue-600 transition-colors">
@@ -56,8 +57,11 @@ export default function Header() {
           </div>
         </div>
 
+        {/* Gold Prices Bar */}
+        <GoldPriceWidget />
+
         {/* Main Header */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 hover-float">
@@ -88,9 +92,28 @@ export default function Header() {
               <Link href="/" className="modern-nav-link">
                 صفحه اصلی
               </Link>
-              <Link href="/categories" className="modern-nav-link">
-                محصولات
-              </Link>
+              <div className="relative group">
+                <button className="modern-nav-link flex items-center gap-1">
+                  خدمات
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div className="absolute top-full right-0 mt-2 py-2 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 min-w-[200px]">
+                  <Link href="/gold-investment" className="block px-4 py-2 text-gray-700 hover:bg-amber-50 hover:text-amber-600 transition-colors">
+                    سرمایه‌گذاری در طلا
+                  </Link>
+                  <Link href="/golden-savings" className="block px-4 py-2 text-gray-700 hover:bg-amber-50 hover:text-amber-600 transition-colors">
+                    پس‌انداز طلایی
+                  </Link>
+                  <Link href="/old-gold-exchange" className="block px-4 py-2 text-gray-700 hover:bg-amber-50 hover:text-amber-600 transition-colors">
+                    تبدیل طلای کهنه
+                  </Link>
+                  <Link href="/gold-delivery" className="block px-4 py-2 text-gray-700 hover:bg-amber-50 hover:text-amber-600 transition-colors">
+                    تحویل طلا در محل
+                  </Link>
+                </div>
+              </div>
               <Link href="/digital-gold" className="modern-nav-link">
                 طلای آبشده دیجیتال
               </Link>
@@ -138,9 +161,23 @@ export default function Header() {
                 <Link href="/" className="modern-nav-link">
                   صفحه اصلی
                 </Link>
-                <Link href="/categories" className="modern-nav-link">
-                  محصولات
-                </Link>
+                <div className="space-y-2">
+                  <div className="font-semibold text-gray-900">خدمات</div>
+                  <div className="space-y-2 pr-4">
+                    <Link href="/gold-investment" className="block text-gray-600 hover:text-amber-600 transition-colors">
+                      سرمایه‌گذاری در طلا
+                    </Link>
+                    <Link href="/golden-savings" className="block text-gray-600 hover:text-amber-600 transition-colors">
+                      پس‌انداز طلایی
+                    </Link>
+                    <Link href="/old-gold-exchange" className="block text-gray-600 hover:text-amber-600 transition-colors">
+                      تبدیل طلای کهنه
+                    </Link>
+                    <Link href="/gold-delivery" className="block text-gray-600 hover:text-amber-600 transition-colors">
+                      تحویل طلا در محل
+                    </Link>
+                  </div>
+                </div>
                 <Link href="/digital-gold" className="modern-nav-link">
                   طلای آبشده دیجیتال
                 </Link>

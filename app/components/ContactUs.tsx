@@ -1,369 +1,160 @@
+'use client';
+
 import { useState } from 'react';
-import {
-  Box,
-  Container,
-  Typography,
-  TextField,
-  Button,
-  Paper,
-  IconButton,
-  Snackbar,
-  useTheme,
-  alpha,
-} from '@mui/material';
-import {
-  Phone as PhoneIcon,
-  Email as EmailIcon,
-  LocationOn as LocationIcon,
-  Instagram as InstagramIcon,
-  Telegram as TelegramIcon,
-  WhatsApp as WhatsAppIcon,
-  Send as SendIcon,
-} from '@mui/icons-material';
 
 export default function ContactUs() {
-  const theme = useTheme();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     message: '',
   });
-  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setOpenSnackbar(true);
-    setFormData({ name: '', email: '', phone: '', message: '' });
+    // Handle form submission
+    console.log('Form submitted:', formData);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  // Common styles for input fields
-  const inputStyles = {
-    '& .MuiInputBase-root': {
-      fontSize: '1.4rem',
-      backgroundColor: alpha(theme.palette.background.paper, 0.8),
-      backdropFilter: 'blur(8px)',
-      borderRadius: '20px',
-      transition: 'all 0.3s ease',
-      minHeight: '80px',
-      '&:hover': {
-        backgroundColor: alpha(theme.palette.background.paper, 0.95),
-      },
-      '&.Mui-focused': {
-        backgroundColor: theme.palette.background.paper,
-        boxShadow: `0 4px 20px ${alpha(theme.palette.primary.main, 0.2)}`,
-      },
-    },
-    '& .MuiInputBase-input': {
-      padding: '28px 32px',
-      direction: 'rtl',
-      '&::placeholder': {
-        fontSize: '1.4rem',
-      },
-    },
-    '& .MuiInputLabel-root': {
-      fontSize: '1.3rem',
-      direction: 'rtl',
-      right: 25,
-      top: 8,
-      left: 'auto',
-      transformOrigin: 'right',
-      color: theme.palette.text.secondary,
-      '&.Mui-focused': {
-        color: theme.palette.primary.main,
-      },
-      '&.MuiInputLabel-shrink': {
-        transform: 'translate(0, -12px) scale(0.85)',
-      },
-    },
-    '& .MuiOutlinedInput-notchedOutline': {
-      borderWidth: 2,
-      borderColor: alpha(theme.palette.primary.main, 0.2),
-    },
-    '&:hover .MuiOutlinedInput-notchedOutline': {
-      borderColor: alpha(theme.palette.primary.main, 0.5),
-    },
-    marginBottom: 3,
-  };
-
-  const contactInfoStyles = {
-    display: 'flex',
-    alignItems: 'center',
-    mb: 6,
-    justifyContent: 'flex-end',
-    transition: 'transform 0.3s ease',
-    '&:hover': {
-      transform: 'translateX(-8px)',
-    },
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   return (
-    <Box
-      sx={{
-        minHeight: '100vh',
-        background: `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.1)} 0%, ${alpha(
-          theme.palette.primary.dark,
-          0.05
-        )} 100%)`,
-        py: { xs: 6, md: 12 },
-        px: { xs: 2, md: 4 },
-      }}
-    >
-      <Container maxWidth="lg">
-        <Box sx={{ textAlign: 'center', mb: 10 }}>
-          <Typography
-            variant="h1"
-            component="h1"
-            fontWeight="bold"
-            sx={{
-              mb: 3,
-              fontSize: { xs: '2.5rem', md: '3.5rem' },
-              background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              color: 'transparent',
-            }}
-          >
+    <div className="bg-gray-50 py-16">
+      <div className="container mx-auto px-4">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-3xl md:text-4xl font-bold text-center mb-8">
             تماس با ما
-          </Typography>
-          <Typography 
-            variant="h5" 
-            color="text.secondary" 
-            sx={{ 
-              maxWidth: '800px', 
-              mx: 'auto',
-              fontSize: { xs: '1.2rem', md: '1.4rem' },
-              lineHeight: 1.8
-            }}
-          >
-            ما همیشه آماده پاسخگویی به سوالات شما هستیم. لطفاً با ما در تماس باشید.
-          </Typography>
-        </Box>
+          </h1>
+          
+          <div className="bg-white rounded-2xl shadow-lg p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Contact Information */}
+              <div className="space-y-6">
+                <h2 className="text-2xl font-semibold mb-4">اطلاعات تماس</h2>
+                
+                <div className="flex items-center space-x-4 space-x-reverse">
+                  <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-medium">تلفن</h3>
+                    <p className="text-gray-600">۰۴۱-۳۳۳۳۳۳۳۳</p>
+                  </div>
+                </div>
 
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 8 }}>
-          {/* Contact Form Section */}
-          <Box sx={{ flex: { md: '0 0 60%' } }}>
-            <Paper
-              elevation={0}
-              sx={{
-                p: { xs: 4, md: 8 },
-                borderRadius: 6,
-                backgroundColor: alpha(theme.palette.background.paper, 0.8),
-                backdropFilter: 'blur(12px)',
-                boxShadow: `0 8px 32px ${alpha(theme.palette.primary.main, 0.1)}`,
-              }}
-            >
-              <form onSubmit={handleSubmit}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-                  <TextField
-                    fullWidth
-                    label="نام و نام خانوادگی"
+                <div className="flex items-center space-x-4 space-x-reverse">
+                  <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-medium">ایمیل</h3>
+                    <p className="text-gray-600">info@tabrizgold.com</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-4 space-x-reverse">
+                  <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-medium">آدرس</h3>
+                    <p className="text-gray-600">تبریز، بازار قدیم، راسته بازار</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-4 space-x-reverse">
+                  <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-medium">ساعات کاری</h3>
+                    <p className="text-gray-600">شنبه تا پنجشنبه: ۹ صبح تا ۹ شب</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Contact Form */}
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                    نام و نام خانوادگی
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    variant="outlined"
+                    className="input"
                     required
-                    sx={inputStyles}
                   />
-                  <Box sx={{ display: 'flex', gap: 4, flexDirection: { xs: 'column', sm: 'row' } }}>
-                    <TextField
-                      fullWidth
-                      label="ایمیل"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      variant="outlined"
-                      required
-                      sx={inputStyles}
-                    />
-                    <TextField
-                      fullWidth
-                      label="شماره تماس"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      variant="outlined"
-                      required
-                      sx={inputStyles}
-                    />
-                  </Box>
-                  <TextField
-                    fullWidth
-                    label="پیام شما"
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                    ایمیل
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="input"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                    شماره تماس
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="input"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                    پیام شما
+                  </label>
+                  <textarea
+                    id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    variant="outlined"
-                    multiline
-                    rows={8}
+                    rows={4}
+                    className="input"
                     required
-                    sx={{
-                      ...inputStyles,
-                      '& .MuiInputBase-root': {
-                        ...inputStyles['& .MuiInputBase-root'],
-                        minHeight: '200px',
-                      },
-                    }}
                   />
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    size="large"
-                    endIcon={<SendIcon sx={{ transform: 'rotate(180deg)', ml: 1, fontSize: '2rem' }} />}
-                    sx={{
-                      py: 3.5,
-                      px: 8,
-                      fontSize: '1.4rem',
-                      borderRadius: '16px',
-                      alignSelf: 'flex-start',
-                      background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
-                      transition: 'all 0.3s ease',
-                      '&:hover': {
-                        transform: 'translateY(-2px)',
-                        boxShadow: `0 8px 20px ${alpha(theme.palette.primary.main, 0.3)}`,
-                      },
-                    }}
-                  >
-                    ارسال پیام
-                  </Button>
-                </Box>
+                </div>
+
+                <button type="submit" className="btn-primary w-full">
+                  ارسال پیام
+                </button>
               </form>
-            </Paper>
-          </Box>
-
-          {/* Contact Information Section */}
-          <Box sx={{ flex: { md: '0 0 40%' } }}>
-            <Paper
-              elevation={0}
-              sx={{
-                p: { xs: 4, md: 8 },
-                borderRadius: 6,
-                height: '100%',
-                background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
-                color: 'white',
-                boxShadow: `0 8px 32px ${alpha(theme.palette.primary.main, 0.2)}`,
-              }}
-            >
-              <Typography 
-                variant="h3" 
-                gutterBottom 
-                align="right" 
-                fontWeight="bold" 
-                sx={{ 
-                  mb: 8,
-                  fontSize: { xs: '2rem', md: '2.5rem' }
-                }}
-              >
-                اطلاعات تماس
-              </Typography>
-              
-              <Box sx={{ mt: 6 }}>
-                <Box sx={contactInfoStyles}>
-                  <Typography sx={{ mr: 3, fontSize: '1.3rem' }} align="right">
-                    تهران، خیابان ولیعصر، بالاتر از میدان ونک
-                  </Typography>
-                  <LocationIcon sx={{ fontSize: '2.8rem' }} />
-                </Box>
-                
-                <Box sx={contactInfoStyles}>
-                  <Typography sx={{ mr: 3, fontSize: '1.3rem', direction: 'ltr' }} align="right">
-                    ۰۲۱-۸۸۸۸۸۸۸۸
-                  </Typography>
-                  <PhoneIcon sx={{ fontSize: '2.8rem' }} />
-                </Box>
-                
-                <Box sx={contactInfoStyles}>
-                  <Typography sx={{ mr: 3, fontSize: '1.3rem' }} align="right">
-                    info@tabrizgold.com
-                  </Typography>
-                  <EmailIcon sx={{ fontSize: '2.8rem' }} />
-                </Box>
-
-                <Typography 
-                  variant="h4" 
-                  gutterBottom 
-                  align="right" 
-                  sx={{ 
-                    mt: 10, 
-                    mb: 6,
-                    fontSize: { xs: '1.8rem', md: '2.2rem' }
-                  }}
-                >
-                  ما را در شبکه‌های اجتماعی دنبال کنید
-                </Typography>
-                
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 4, gap: 3 }}>
-                  <IconButton
-                    color="inherit"
-                    sx={{
-                      fontSize: '3rem',
-                      p: 2.5,
-                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                      transition: 'all 0.3s ease',
-                      '&:hover': {
-                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                        transform: 'translateY(-4px)',
-                      },
-                    }}
-                  >
-                    <InstagramIcon sx={{ fontSize: '3rem' }} />
-                  </IconButton>
-                  <IconButton
-                    color="inherit"
-                    sx={{
-                      fontSize: '3rem',
-                      p: 2.5,
-                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                      transition: 'all 0.3s ease',
-                      '&:hover': {
-                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                        transform: 'translateY(-4px)',
-                      },
-                    }}
-                  >
-                    <TelegramIcon sx={{ fontSize: '3rem' }} />
-                  </IconButton>
-                  <IconButton
-                    color="inherit"
-                    sx={{
-                      fontSize: '3rem',
-                      p: 2.5,
-                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                      transition: 'all 0.3s ease',
-                      '&:hover': {
-                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                        transform: 'translateY(-4px)',
-                      },
-                    }}
-                  >
-                    <WhatsAppIcon sx={{ fontSize: '3rem' }} />
-                  </IconButton>
-                </Box>
-              </Box>
-            </Paper>
-          </Box>
-        </Box>
-      </Container>
-
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={6000}
-        onClose={() => setOpenSnackbar(false)}
-        message="پیام شما با موفقیت ارسال شد"
-        sx={{
-          '& .MuiSnackbarContent-root': {
-            fontSize: '1.2rem',
-            borderRadius: '16px',
-            padding: '16px 24px',
-            backgroundColor: theme.palette.primary.main,
-          },
-        }}
-      />
-    </Box>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 } 

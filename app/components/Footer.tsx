@@ -117,12 +117,12 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/gold-savings" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/golden-savings" className="text-gray-400 hover:text-white transition-colors">
                   پس‌انداز طلایی
                 </Link>
               </li>
               <li>
-                <Link href="/gold-exchange" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/old-gold-exchange" className="text-gray-400 hover:text-white transition-colors">
                   تبدیل طلای کهنه
                 </Link>
               </li>

@@ -1,16 +1,21 @@
 import './globals.css';
-import type { Metadata } from 'next';
+import { Metadata } from 'next';
 import { Vazirmatn } from 'next/font/google';
+import Providers from './providers';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import { CartProvider } from './context/CartContext';
+import { GoldPriceProvider } from './context/GoldPriceContext';
 
 const vazir = Vazirmatn({ subsets: ['arabic'] });
 
 export const metadata: Metadata = {
   title: 'تبریزگلد | فروشگاه آنلاین طلا و جواهرات اصیل ایرانی',
-  description: 'تبریزگلد، معتبرترین فروشگاه آنلاین طلا و جواهرات در ایران با بیش از ۵۰ سال سابقه درخشان. خرید و فروش انواع طلا، جواهرات و سنگ‌های قیمتی با قیمت روز',
-  keywords: 'طلا, جواهرات, تبریزگلد, خرید طلا, فروش طلا, طلای آنلاین, جواهرات ایرانی, انگشتر, گردنبند, دستبند, گوشواره, سرویس طلا',
+  description: 'تبریزگلد، معتبرترین فروشگاه آنلاین طلا و جواهرات در ایران با بیش از ۵۰ سال سابقه درخشان',
+  keywords: 'طلا, جواهرات, تبریزگلد, خرید طلا, فروش طلا, طلای آنلاین, جواهرات ایرانی',
   openGraph: {
     title: 'تبریزگلد | فروشگاه آنلاین طلا و جواهرات اصیل ایرانی',
-    description: 'تبریزگلد، معتبرترین فروشگاه آنلاین طلا و جواهرات در ایران با بیش از ۵۰ سال سابقه درخشان',
+    description: 'تبریزگلد، معتبرترین فروشگاه آنلاین طلا و جواهرات در ایران',
     url: 'https://tabriz.gold',
     siteName: 'تبریزگلد',
     locale: 'fa_IR',
@@ -33,6 +38,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://tabriz.gold',
   },
+  metadataBase: new URL('https://tabriz.gold'),
 };
 
 export default function RootLayout({
@@ -41,7 +47,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fa" dir="rtl">
+    <html lang="fa" dir="rtl" className={vazir.className}>
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
@@ -51,7 +57,19 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="تبریزگلد" />
       </head>
-      <body className={vazir.className}>{children}</body>
+      <body className={vazir.className}>
+        <CartProvider>
+          <GoldPriceProvider>
+            <Providers>
+              <Header />
+              <main className="flex-grow">
+                {children}
+              </main>
+              <Footer />
+            </Providers>
+          </GoldPriceProvider>
+        </CartProvider>
+      </body>
     </html>
   );
 }
