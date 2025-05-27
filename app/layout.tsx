@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { CartProvider } from './context/CartContext';
 import { GoldPriceProvider } from './context/GoldPriceContext';
+import InstallPrompt from './components/InstallPrompt';
 
 const vazir = Vazirmatn({ subsets: ['arabic'] });
 
@@ -58,6 +59,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="تبریزگلد" />
       </head>
       <body className={vazir.className}>
+        <InstallPrompt />
         <CartProvider>
           <GoldPriceProvider>
             <Providers>

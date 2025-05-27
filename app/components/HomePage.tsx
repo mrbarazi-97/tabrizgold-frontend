@@ -2,8 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import Header from './Header';
-import Footer from './Footer';
+
 import ProductSlider from './ProductSlider';
 import { Product } from '../types/product';
 
@@ -86,7 +85,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <Header />
+    
       
       {/* Hero Section */}
       <div className="min-h-[80vh] flex items-center justify-center bg-gradient-to-r from-primary-500 to-primary-400 py-16">
@@ -156,7 +155,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <Footer />
+   
     </div>
   );
 } 

@@ -1,8 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import DigitalGoldTrading from '../components/DigitalGoldTrading';
 import DigitalGoldBalance from '../components/DigitalGoldBalance';
 import { DigitalGoldTransaction } from '../types/digital-gold';
@@ -109,10 +107,8 @@ export default function DigitalGoldPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-amber-50">
-      <Header />
-      
-      <main className="pt-32">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-amber-50">      
+      <main className="pt-22">
         {/* Hero Section */}
         <div className="relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-amber-600/10" />
@@ -267,8 +263,6 @@ export default function DigitalGoldPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 } 

@@ -1,7 +1,7 @@
 {
-  "name": "تبریزگلد",
-  "short_name": "تبریزگلد",
-  "description": "فروشگاه آنلاین طلا و جواهرات اصیل ایرانی",
+  "name": "تبریز گلد - فروشگاه طلا و جواهر",
+  "short_name": "تبریز گلد",
+  "description": "خرید و فروش طلا و جواهر با بهترین قیمت",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
